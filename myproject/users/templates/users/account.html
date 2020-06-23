@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="container-fluid" style="border:2px solid #cecece; width : 80%;color:white; background:linear-gradient( #654ea3, #eaafc8)">
+<br>
+<div align="center" class="container">
+	<h1 style="color:white">{{current_user.username}}'s Account</h1>
+</div>
+<div class="container" >
+    <div align="center">
+    <img src="{{url_for('static', filename='images/'+current_user.profile_image)}}"
+         style="width:290px;height:270px; border-radius:50%;background:linear-gradient(#c9d6ff, #e2e2e2) ">
+    </div>
+</div>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        <div class="form-group">
+        {{form.email.label(class='form-group')}} {{form.email(class='form-control')}}
+            {% for error in form.email.errors %}
+                <span style="color:red">{{error}}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+        {{form.profile_image.label(class='form-group')}} {{form.profile_image(class='form-control')}}
+        </div>
+        <div align="center">
+        {{form.submit(class='btn btn-outline-dark btn-lg')}}
+        </div>
+        <br>
+    </form>
+</div>
+<br><hr style= "border: 1px doted white"> <br>
+
+<div class="container-fluid" style="border:2px solid #cecece; width : 80%; background:linear-gradient( #654ea3, #eaafc8)">
+    <br><br>
+    <div class="container" align="center">
+             <a  class="btn btn-outline-light btn-lg"  href="/add" >Create new post</a>
+    </div>
+    <br><br><br>
+<div class="row row-cols-1 row-cols-md-3">
+    	{% for p in post %}
+  <div class="col mb-4">
+    <div class="card" style="opacity:0.9">
+      <img src="{{url_for('static', filename='/images/'+p.post_image)}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-title text-muted float-right">on {{p.date.strftime("%d.%m.%y")}}</p>
+        <h5 class="card-title">{{p.title}}</h5>
+        <hr>
+        <p class="card-text">{{p.content[:150]}}.........<a href="/read/{{p.id}}">read full</a></p>
+        <hr>
+        <div>
+            <a class="btn btn-outline-success float-left" href="/update/{{p.id}}">Update</a>
+            <a class="btn btn-outline-danger float-right" href="/delete/{{p.id}}">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+<br>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base2.html" %}
+{% block content %}
+
+<div align="center" class="jumbotron" style="background:linear-gradient( #159957, #155799)" >
+    <img src="{{url_for('static', filename='images/home.jpg')}}"
+         style="width:290px;height:270px; border-radius:50%;background:linear-gradient(#c9d6ff, #e2e2e2) ; opacity:0.8 ">
+	<h1  style="color:white">Welcome To The Blog </h1>
+</div>
+<div class="container" align="center" >
+    <br><br>
+    <div >
+    <h1 align="center" style="color:white">Recent Posts </h1>
+        <hr>
+    </div>
+    <br><br>
+	{% for p in post.items %}
+<div class="card" style="width: 25rem; opacity:0.8;" >
+	<h5><a class="btn float-left" href="/view_account/{{p.user_id}}"><img src="{{url_for('static', filename='/images/'+p.user.profile_image)}}"
+	class="float-left" alt="..." style="height:50px; width:50px; border-radius:50%"> <span style="color:white">###</span>{{p.user.username}}</a></h5>
+  <img src="{{url_for('static', filename='/images/'+p.post_image)}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{p.title}}</h5>
+    <p class="card-text">{{p.content[:150]}}.........<a href="/read/{{p.id}}">read full</a></p>
+  </div>
+	<div class="card-footer">
+      <small class="text-muted">Last updated {{p.date.strftime("%d.%m.%y")}}</small>
+    </div>
+</div>
+	<br>
+	{% endfor %}
+	<br>
+  <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% for page_num in post.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if post.page == page_num %}
+          <li class="page-item disabled">
+            <a class="page-link" href="{{url_for('home', page=page_num)}}">{{page_num}}</a>
+          </li>
+        {% else %}
+          <li class="page-item ">
+            <a class="page-link" href="{{url_for('home', page=page_num)}}">{{page_num}}</a>
+          </li>
+        {% endif %}
+       {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">.......</a>
+          </li>
+       {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+</div>
+{% endblock %}

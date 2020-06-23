@@ -1,0 +1,26 @@
+{% extends "base2.html" %}
+{% block content %}
+
+<div align="center" class="jumbotron" style="background:linear-gradient(to right, #159957, #155799)" >
+	<h1 style="color:white"> Update </h1>
+</div>
+<div class="container-fluid" style="border:2px solid #cecece;width : 90%;color:white ; background:linear-gradient( #159957, #155799)">
+ <br>
+<form method="post" enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+        <div class="form-group">
+            {{form.title.label(class='form-group')}} {{form.title(class='form-control')}}
+        </div>
+        <div class="form-group">
+            {{form.post_image.label(class='form-group')}}  {{form.post_image()}}
+        </div>
+        <div class="form-group">
+            {{form.content.label(class='form-group')}} {{form.content(class='form-control')}}
+        </div>
+        <div align="center">
+        {{form.submit(class='btn btn-outline-light btn-lg')}}
+        </div>
+</form>
+<br>
+</div>
+{% endblock %}

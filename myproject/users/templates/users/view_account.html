@@ -1,0 +1,37 @@
+{% extends "base2.html" %}
+{% block content %}
+<br>
+<br>
+<div class="container" >
+    <div>
+    <img class="float-left" src="{{url_for('static', filename='images/'+user.profile_image)}}"
+         style="width:160px;height:160px; border-radius:50%; ">
+        <h1  style="color:white">{{user.username}}</h1>
+    </div>
+</div>
+<div class="container-fluid" style="border:2px solid #cecece; width : 80%; background:linear-gradient( #159957, #155799)">
+
+    <br><br><br>
+    <div class="container" align="center">
+             <h4 style="color:white">{{user.username}}'s Posts</h4>
+             <hr>
+    </div>
+    <br>
+<div class="row row-cols-1 row-cols-md-3" >
+    	{% for p in post %}
+  <div class="col mb-4" >
+    <div class="card" style="opacity:0.9;  background:linear-gradient(#c9d6ff, #e2e2e2)">
+      <img src="{{url_for('static', filename='/images/'+p.post_image)}}" class="card-img-top" alt="...">
+      <div class="card-body" >
+        <p class="card-title text-muted float-right">on {{p.date.strftime("%d.%m.%y")}}</p>
+        <h5 class="card-title">{{p.title}}</h5>
+        <hr>
+        <p class="card-text">{{p.content[:150]}}.........<a href="/read/{{p.id}}">read full</a></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+<br>
+{% endblock %}
